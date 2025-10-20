@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  # 클라이언트 서비스 (Vite)
+  client:
+    build:
+      context: ./client # ./client 디렉토리의 Dockerfile을 사용
+      dockerfile: Dockerfile
+    container_name: music_app_client
+    ports:
+      - "5173:5173" # 로컬 5173 포트를 컨테이너 5173 포트와 연결 (Vite 기본 포트)
+    volumes:
+      - ./client/src:/app/src # 소스 코드 변경 시 바로 반영되도록 볼륨 마운트
+    environment:
+      - VITE_API_URL=http://localhost:3001/api # 서버 API 주소
+    depends_on:
+      - server # 서버가 먼저 실행되도록 의존성 설정
+
+  # 서버 서비스 (Express)
+  server:
+    build:
+      context: ./server # ./server 디렉토리의 Dockerfile을 사용
+      dockerfile: Dockerfile
+    container_name: music_app_server
+    ports:
+      - "3001:3001" # 로컬 3001 포트를 컨테이너 3001 포트와 연결
+    volumes:
+      - ./server/src:/app/src # 소스 코드 변경 시 바로 반영되도록 볼륨 마운트
+    env_file:
+      - ./server/.env # 서버 환경 변수 파일 로드
+
+networks:
+  default:
+    driver: bridge

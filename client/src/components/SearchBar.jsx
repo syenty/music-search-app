@@ -1,11 +1,12 @@
 import React from "react";
 
-function SearchBar({ onSearch }) {
+function SearchBar({ value, onChange }) {
   return (
     <input
       type="text"
       placeholder="Search for a song..."
-      onChange={(e) => onSearch(e.target.value)}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       className="search-bar"
     />
   );

@@ -5,7 +5,8 @@ import { searchTracks } from "./api";
 import "./App.css";
 
 function App() {
-  const [query, setQuery] = useState("");
+  const [inputValue, setInputValue] = useState(""); // 입력창의 현재 값
+  const [query, setQuery] = useState(""); // 검색을 실행할 검색어
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,10 +34,18 @@ function App() {
     search();
   }, [query]); // query가 변경될 때마다 실행
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault(); // 폼 제출 시 페이지가 새로고침되는 것을 방지
+    setQuery(inputValue); // 입력된 값으로 검색 실행
+  };
+
   return (
     <div className="App">
       <h1>Spotify Music Search</h1>
-      <SearchBar onSearch={setQuery} />
+      <form onSubmit={handleSearchSubmit} className="search-form">
+        <SearchBar value={inputValue} onChange={setInputValue} />
+        <button type="submit">🔍</button>
+      </form>
       <TrackList tracks={tracks} loading={loading} error={error} />
     </div>
   );

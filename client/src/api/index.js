@@ -9,8 +9,28 @@ const apiClient = axios.create({
  * @param {string} query - 검색어
  * @returns {Promise<object>} - 검색 결과 Promise
  */
-export const searchTracks = (query) => {
-  if (!query) return Promise.resolve({ tracks: { items: [] } });
+export const search = async (query) => {
+  if (!query) return Promise.resolve({ data: { tracks: {}, artists: {}, albums: {} } });
 
-  return apiClient.get("/search", { params: { q: query, type: "track", limit: 20 } });
+  const [artistResponse, trackResponse] = await Promise.all([
+    apiClient.get("/search", { params: { q: query, type: "artist", limit: 3 } }),
+    apiClient.get("/search", { params: { q: query, type: "track", limit: 5 } }),
+  ]);
+
+  return {
+    data: {
+      artists: artistResponse.data.artists,
+      tracks: trackResponse.data.tracks,
+    },
+  };
+};
+
+export const getArtistAlbums = (artistId) => {
+  return apiClient.get(`/artists/${artistId}/albums`, {
+    params: { limit: 4, include_groups: "album,single" },
+  });
+};
+
+export const getArtistTopTracks = (artistId) => {
+  return apiClient.get(`/artists/${artistId}/top-tracks`);
 };

@@ -77,9 +77,16 @@ function App() {
     setQuery(artistName);
   };
 
+  const handleHomeClick = () => {
+    setInputValue("");
+    setQuery("");
+    setArtistDetail({ artist: null, albums: [], topTracks: [] }); // Explicitly clear artist detail
+    setError(null); // Clear any existing error
+  };
+
   return (
     <div className="App">
-      <h1>Spotify Music Search</h1>
+      <h1 onClick={handleHomeClick}>Spotify Music Search</h1>
       <form onSubmit={handleSearchSubmit} className="search-form">
         <SearchBar value={inputValue} onChange={setInputValue} />
         <button type="submit">🔍</button>

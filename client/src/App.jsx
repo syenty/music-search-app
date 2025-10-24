@@ -88,16 +88,21 @@ function App() {
 
   return (
     <div className="App">
-      <h1>
-        <button type="button" className="app-title-button" onClick={handleHomeClick}>
-          <span className="app-title-badge">Home</span>
-          Spotify Music Search
-        </button>
-      </h1>
-      <form onSubmit={handleSearchSubmit} className="search-form">
-        <SearchBar value={inputValue} onChange={setInputValue} />
-        <button type="submit">🔍</button>
-      </form>
+      <header className="app-header">
+        <h1>
+          <button type="button" className="app-title-button" onClick={handleHomeClick}>
+            <span className="app-title-badge">Home</span>
+            Spotify Music Search
+          </button>
+        </h1>
+        <form role="search" onSubmit={handleSearchSubmit} className="search-form">
+          <SearchBar value={inputValue} onChange={setInputValue} />
+          <button type="submit" className="search-submit">
+            <span aria-hidden="true">🔍</span>
+            <span className="sr-only">Search</span>
+          </button>
+        </form>
+      </header>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
 

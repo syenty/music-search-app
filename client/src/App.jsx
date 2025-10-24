@@ -5,18 +5,50 @@ import ArtistList from "./components/ArtistList";
 import ArtistDetail from "./components/ArtistDetail";
 import AlbumList from "./components/AlbumList";
 import TopTracksList from "./components/TopTracksList"; // 새로 추가
-import { search, getArtistAlbums, getArtistTopTracks } from "./api";
+import {
+  search,
+  getArtistAlbums,
+  getArtistTopTracks,
+  getSeveralArtists,
+  getSeveralTracks,
+} from "./api";
 import "./App.css";
 
 function App() {
   const [inputValue, setInputValue] = useState(""); // 입력창의 현재 값
   const [query, setQuery] = useState(""); // 검색을 실행할 검색어
   const [viewMode, setViewMode] = useState("default"); // 'default' or 'artistDetail'
+  const [recommendations, setRecommendations] = useState({
+    artists: [],
+    tracks: [],
+  });
   const [generalResults, setGeneralResults] = useState({ tracks: [], artists: [] });
   const [artistDetail, setArtistDetail] = useState({ artist: null, albums: [], topTracks: [] });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // 초기 로드 시 추천 아티스트 및 트랙을 가져옵니다.
+    const fetchRecommendations = async () => {
+      setLoading(true);
+      try {
+        const [artistsRes, tracksRes] = await Promise.all([
+          getSeveralArtists(),
+          getSeveralTracks(),
+        ]);
+        setRecommendations({
+          artists: artistsRes.data.artists || [],
+          tracks: tracksRes.data.tracks || [],
+        });
+      } catch (err) {
+        setError(err.message);
+      }
+      setLoading(false);
+    };
+
+    fetchRecommendations();
+  }, []);
 
   useEffect(() => {
     // 검색어가 비어있으면 검색하지 않음
@@ -105,6 +137,20 @@ function App() {
       </header>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
+
+      {/* 초기 추천 화면 뷰 */}
+      {!loading && !error && !query && (
+        <div className="results-grid">
+          <section className="results-column">
+            <h2>Recommended Artists</h2>
+            <ArtistList artists={recommendations.artists} onArtistClick={handleArtistClick} />
+          </section>
+          <section className="results-column">
+            <h2>Recommended Tracks</h2>
+            <TrackList tracks={recommendations.tracks} />
+          </section>
+        </div>
+      )}
 
       {/* 일반 검색 결과 뷰 */}
       {!loading && !error && viewMode === "default" && query && (

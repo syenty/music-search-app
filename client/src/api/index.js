@@ -34,3 +34,19 @@ export const getArtistAlbums = (artistId) => {
 export const getArtistTopTracks = (artistId) => {
   return apiClient.get(`/artists/${artistId}/top-tracks`);
 };
+
+/**
+ * 여러 아티스트의 정보를 ID로 가져옵니다.
+ * @param {string[]} [ids] - 아티스트 ID 배열. 제공되지 않으면 서버의 기본값을 사용합니다.
+ * @returns {Promise<object>}
+ */
+export const getSeveralArtists = (ids) =>
+  apiClient.get("/artists", { params: { ids: ids?.join(",") } });
+
+/**
+ * 여러 트랙의 정보를 ID로 가져옵니다.
+ * @param {string[]} [ids] - 트랙 ID 배열. 제공되지 않으면 서버의 기본값을 사용합니다.
+ * @returns {Promise<object>}
+ */
+export const getSeveralTracks = (ids) =>
+  apiClient.get("/tracks", { params: { ids: ids?.join(",") } });

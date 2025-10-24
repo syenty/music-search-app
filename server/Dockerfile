@@ -5,10 +5,10 @@ FROM node:20-alpine
 WORKDIR /app
 
 # 3. package.json, package-lock.json 복사
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
 # 4. 의존성 설치 (nodemon을 전역이 아닌 로컬에 설치)
-RUN npm install
+RUN yarn install --frozen-lockfile
 
 # 5. 소스 코드 복사
 COPY . .
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3001
 
 # 7. 서버 실행 (nodemon 사용)
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]

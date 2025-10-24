@@ -71,6 +71,12 @@ function App() {
     setQuery(inputValue); // 입력된 값으로 검색 실행
   };
 
+  // 아티스트 리스트 아이템 클릭 시 검색 실행
+  const handleArtistClick = (artistName) => {
+    setInputValue(artistName);
+    setQuery(artistName);
+  };
+
   return (
     <div className="App">
       <h1>Spotify Music Search</h1>
@@ -86,7 +92,7 @@ function App() {
         <div className="results-grid">
           <section className="results-column">
             <h2>Artists</h2>
-            <ArtistList artists={generalResults.artists} />
+            <ArtistList artists={generalResults.artists} onArtistClick={handleArtistClick} />
           </section>
           <section className="results-column">
             <h2>Tracks</h2>

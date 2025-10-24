@@ -135,6 +135,16 @@
   text-decoration: none;
 }
 
+/* ArtistList의 클릭 가능한 div에 대한 스타일 */
+.artist-item-clickable {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
 /* TopTracksList 특정 스타일 */
 .top-tracks-list .track-item a {
   display: grid;

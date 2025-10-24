@@ -135,6 +135,27 @@
   text-decoration: none;
 }
 
+/* TopTracksList 특정 스타일 */
+.top-tracks-list .track-item a {
+  display: grid;
+  grid-template-columns: 20px 64px 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.top-tracks-list .track-rank {
+  text-align: right;
+  color: #aaa;
+}
+
+.top-tracks-list .track-name {
+  text-align: left;
+  /* 텍스트가 길어지면 말줄임표 처리 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Artist Detail Card */
 .artist-detail-card {
   background-color: #282828;

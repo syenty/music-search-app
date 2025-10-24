@@ -4,6 +4,7 @@ import TrackList from "./components/TrackList";
 import ArtistList from "./components/ArtistList";
 import ArtistDetail from "./components/ArtistDetail";
 import AlbumList from "./components/AlbumList";
+import TopTracksList from "./components/TopTracksList"; // 새로 추가
 import { search, getArtistAlbums, getArtistTopTracks } from "./api";
 import "./App.css";
 
@@ -111,7 +112,7 @@ function App() {
           {/* 하단 섹션: 인기 트랙 */}
           <section className="bottom-section">
             <h2 className="section-title">Top Tracks</h2>
-            <TrackList tracks={artistDetail.topTracks} />
+            <TopTracksList tracks={artistDetail.topTracks} />
           </section>
         </div>
       )}

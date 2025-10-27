@@ -5,6 +5,24 @@
   text-align: center;
 }
 
+@media (max-width: 1200px) {
+  #root {
+    padding: 2rem 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1.5rem 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 1.25rem 1rem;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -17,7 +35,8 @@
 }
 
 .App {
-  width: 75%;
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: left;
 }
@@ -128,6 +147,16 @@
   outline-offset: 3px;
 }
 
+@media (max-width: 900px) {
+  .App {
+    max-width: 100%;
+  }
+
+  .search-form {
+    padding: 0.35rem 0.75rem;
+  }
+}
+
 @media (max-width: 768px) {
   .app-header {
     flex-direction: column;
@@ -140,10 +169,30 @@
 
   .search-form {
     width: 100%;
+    padding: 0.35rem 0.5rem;
   }
 
   .search-bar {
     min-width: 0;
+  }
+
+  .search-submit {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    gap: 1rem;
+  }
+
+  .search-form {
+    gap: 0.5rem;
+  }
+
+  .search-submit {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -151,10 +200,12 @@
   display: flex;
   gap: 2rem;
   width: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .results-column {
-  flex: 1;
+  flex: 1 1 320px;
   min-width: 0;
 }
 
@@ -168,6 +219,22 @@
 .section-title {
   text-align: left;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .results-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .results-grid {
+    flex-direction: column;
+  }
+
+  .results-column {
+    flex-basis: auto;
+  }
 }
 
 /* Common list styles */
@@ -240,6 +307,41 @@
   white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+  .top-tracks-list .track-item a {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 0.75rem;
+    align-items: center;
+  }
+
+  .top-tracks-list .track-item a .track-rank {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .top-tracks-list .track-item a img {
+    grid-column: 1;
+    grid-row: 2;
+    width: 48px;
+    height: 48px;
+  }
+
+  .top-tracks-list .track-item a .track-name {
+    grid-column: 2;
+    grid-row: 1;
+    white-space: normal;
+  }
+
+  .top-tracks-list .track-item a .track-duration {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    font-size: 0.95rem;
+  }
+}
+
 /* Artist Detail Card */
 .artist-detail-card {
   background-color: #282828;
@@ -257,6 +359,18 @@
 .artist-detail-card a {
   color: inherit;
   text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .artist-detail-card {
+    padding: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artist-detail-card {
+    padding: 1.5rem;
+  }
 }
 
 /* 리스트 아이템 이미지 크기 고정 */
@@ -333,6 +447,48 @@
   color: #aaa;
   font-size: 0.9rem;
   text-transform: capitalize;
+}
+
+@media (max-width: 600px) {
+  .track-item a,
+  .artist-item a,
+  .album-item a,
+  .artist-item-clickable {
+    gap: 0.75rem;
+  }
+
+  .track-item a img,
+  .album-item a img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .artist-item a img,
+  .artist-detail-card img {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+@media (max-width: 480px) {
+  .track-item a,
+  .artist-item a,
+  .album-item a,
+  .artist-item-clickable {
+    align-items: flex-start;
+  }
+
+  .track-item a img,
+  .album-item a img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .artist-item a img,
+  .artist-detail-card img {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* Artist Detail View Layout */
